@@ -1,0 +1,8 @@
+{
+    "author": "Curvu",
+    "name": "Word Changer",
+    "description": "Type 'ping' and get 'pong'.",
+    "version": "1.0.0",
+    "license": "MIT",
+    "nsfw": false
+}
