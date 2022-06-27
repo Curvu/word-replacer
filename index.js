@@ -1,5 +1,6 @@
-const { getModule } = require('powercord/webpack');
+const { getModule, messages } = require('powercord/webpack');
 const { Plugin } = require('powercord/entities');
+
 
 const Settings = require('./components/settings');
 
@@ -30,7 +31,7 @@ getModule.exports = class WordChanger extends Plugin {
 
     pluginWillUnload() {
         uninject('injectionID');
-        powercord.api.settings.unregisterSettings('ping-pong');
+        powercord.api.settings.unregisterSettings(this.entityID);
         powercord.api.commands.unregisterCommand('ping');
     }
 }
