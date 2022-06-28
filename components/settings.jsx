@@ -1,24 +1,40 @@
 const { React } = require('powercord/webpack');
 const { TextInput } = require('powercord/components/settings');
+const { Button, Text } = require('powercord/components');
 
 // This is the component that user will see
-module.exports = class Settings extends React.PureComponent {
+module.exports = class Settings extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            settingToSave: '',
+            settingsSaved: [],
+        }
     }
 
     render() {
+        const onPressingSave = () => {
+            if (length(this.state.settingsSaved) > 0) {
+                this.setState({ settingsSaved: settingsSaved.push(this.state.settingToSave) });
+            }
+        }
+
         return (
             <div>
                 <TextInput
-                    onChange={val => this.props.updateSettings('settingToSave', val)}
-                    defaultValue={this.props.getSetting('settingToSave', 'defaultValue')}
+                    note={'Type words that you want to be replaced here'}
+                    placeholder={'Example: "pc"'}   
                     required={false}
-                    disabled={false}
-                    note={'This is a note'}
+                    onChange={val => this.setState({ settingToSave: val })}
                 >
-                    Settings Field
+                    Add word
                 </TextInput>
+                <Button onPress={onPressingSave}>
+                    Save
+                </Button>
+                <Text>
+                    {this.state.settingsSaved.join(', ')}
+                </Text>
             </div>
         )
     }
