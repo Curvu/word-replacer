@@ -6,39 +6,20 @@ const { Button, Text } = require('powercord/components');
 module.exports = class Settings extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            toSave: '',
-            saved: [],
-        }
     }
 
     render() {
         return (
             <div>
                 <TextInput
-                    note={'Type words that you want to be replaced here'}
-                    placeholder={'Example: "pc"'}   
-                    required={false}
-                    onChange={str => this.setState({ toSave: str })}
+                    required={true}
+                    note={'Example: "rofl","lmao"|"ping","pong"'}
+                    defaultValue={this.props.getSetting('save', '')}
+                    onChange={str => this.props.updateSetting('save', str)}
                 >
-                    Add word
+                    Replace
                 </TextInput>
-                <Button onClick={this.onPressingSave()} >
-                    Save
-                </Button>
-                <Text>
-                    List: {this.state.saved.join(', ')}
-                </Text>
             </div>
         )
     }
-
-    onPressingSave() {
-        // console.log('Nop')
-        if (this.state.toSave.length > 0) {
-            this.setState({ toSave: this.state.saved.push(this.state.toSave) });
-            // console.log('Yep');
-        }
-    }
-
 }
