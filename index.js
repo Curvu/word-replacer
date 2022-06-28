@@ -1,10 +1,9 @@
-const { getModule, messages } = require('powercord/webpack');
+const { messages } = require('powercord/webpack');
 const { Plugin } = require('powercord/entities');
-
+const { inject, uninject } = require('powercord/injector');
 
 const Settings = require('./components/settings');
-
-getModule.exports = class WordChanger extends Plugin {
+module.exports = class WordChanger extends Plugin {
     startPlugin() {
         powercord.api.settings.registerSettings(this.entityID, {
             category: this.entityID,
@@ -15,7 +14,7 @@ getModule.exports = class WordChanger extends Plugin {
         powercord.api.commands.registerCommand({
             command: 'currentChannelId',
             description: 'Replace words like "ping" with "pong"',
-            usage: 'wordchanger',
+            usage: '{c} [...message]',
             executor: (args) => ({
                 send: false,
                 result: `Pong!`
@@ -23,7 +22,10 @@ getModule.exports = class WordChanger extends Plugin {
         })
 
         inject('injectionID', messages, 'sendMessage', (args) => {
-            if (args[0].content.includes('ping')) args[0].content = args[0].content.replace('ping', 'pong');
+            console.log(args[1].content);
+            if (args[1].content.includes('ping')) {
+                args[1].content = args[1].content.replace('ping', 'pong');
+            }
             return args;
         }, true);
     }
