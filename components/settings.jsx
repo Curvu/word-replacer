@@ -7,35 +7,38 @@ module.exports = class Settings extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            settingToSave: '',
-            settingsSaved: [],
+            toSave: '',
+            saved: [],
         }
     }
 
     render() {
-        const onPressingSave = () => {
-            if (length(this.state.settingsSaved) > 0) {
-                this.setState({ settingsSaved: settingsSaved.push(this.state.settingToSave) });
-            }
-        }
-
         return (
             <div>
                 <TextInput
                     note={'Type words that you want to be replaced here'}
                     placeholder={'Example: "pc"'}   
                     required={false}
-                    onChange={val => this.setState({ settingToSave: val })}
+                    onChange={str => this.setState({ toSave: str })}
                 >
                     Add word
                 </TextInput>
-                <Button onPress={onPressingSave}>
+                <Button onClick={this.onPressingSave()} >
                     Save
                 </Button>
                 <Text>
-                    {this.state.settingsSaved.join(', ')}
+                    List: {this.state.saved.join(', ')}
                 </Text>
             </div>
         )
     }
+
+    onPressingSave() {
+        // console.log('Nop')
+        if (this.state.toSave.length > 0) {
+            this.setState({ toSave: this.state.saved.push(this.state.toSave) });
+            // console.log('Yep');
+        }
+    }
+
 }
