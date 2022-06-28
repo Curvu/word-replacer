@@ -11,20 +11,16 @@ module.exports = class WordChanger extends Plugin {
             render: Settings
         })
 
-        powercord.api.commands.registerCommand({
-            command: 'currentChannelId',
-            description: 'Replace words like "ping" with "pong"',
-            usage: '{c} [...message]',
-            executor: (args) => ({
-                send: false,
-                result: `Pong!`
-            })
-        })
-
         inject('injectionID', messages, 'sendMessage', (args) => {
-            console.log(args[1].content);
-            if (args[1].content.includes('ping')) {
-                args[1].content = args[1].content.replace('ping', 'pong');
+            var saved = this.settings.get('save', '');
+            while (saved.includes('"')) saved = saved.replace('"', '');
+            while (saved.includes('|')) saved = saved.replace('|', ',');
+            var words = saved.split(',');
+            if (words.length % 2 != 0) return args; // Prevent to do like "old","new","old"|"new","old"
+            for (var i = 0; i < words.length; i += 2) { // format: "old","new"|"old","new"|"old","new"
+                while (args[1].content.includes(words[i])) {
+                    args[1].content = args[1].content.replace(words[i], words[i+1]);
+                }
             }
             return args;
         }, true);
