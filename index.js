@@ -3,7 +3,7 @@ const { Plugin } = require('powercord/entities');
 const { inject, uninject } = require('powercord/injector');
 
 const Settings = require('./components/settings');
-module.exports = class WordChanger extends Plugin {
+module.exports = class WordReplacer extends Plugin {
     startPlugin() {
         powercord.api.settings.registerSettings(this.entityID, {
             category: this.entityID,
