@@ -1,7 +1,7 @@
 {
     "author": "Curvu",
-    "name": "Word Changer",
-    "description": "Type 'ping' and get 'pong'",
+    "name": "Word Replacer",
+    "description": "Replace words like 'ping' with 'pong'",
     "version": "1.0.0",
     "license": "MIT",
     "nsfw": false
