@@ -13,12 +13,12 @@ module.exports = class WordReplacer extends Plugin {
 
         inject('injectionID', messages, 'sendMessage', (args) => {
             var saved = this.settings.get('save', '');
-            while (saved.includes('"')) saved = saved.replace('"', '');
-            while (saved.includes('|')) saved = saved.replace('|', ',');
+            while (saved.contains('"')) saved = saved.replace('"', '');
+            while (saved.contains('|')) saved = saved.replace('|', ',');
             var words = saved.split(',');
             if (words.length % 2 != 0) return args; // Prevent to do like "old","new","old"|"new","old"
             for (var i = 0; i < words.length; i += 2) { // format: "old","new"|"old","new"|"old","new"
-                while (args[1].content.includes(words[i])) {
+                while (args[1].content.contains(words[i])) {
                     args[1].content = args[1].content.replace(words[i], words[i+1]);
                 }
             }
