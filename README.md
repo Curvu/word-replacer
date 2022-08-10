@@ -1,2 +1,2 @@
 # word-replacer
-A plugin for POWERCORD
+A plugin for POWERCORD (closed 4ever)
